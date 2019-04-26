@@ -39,19 +39,17 @@ public class loginservlet extends HttpServlet {
             String utype = request.getParameter("utype");
             String name = request.getParameter("name");
             String pass = request.getParameter("password");
-            int count =0;
+           
             try
             {
                 Class.forName("com.mysql.jdbc.Driver");  
                 Connection con=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/crime","root","");     
-                out.println("Connected...");
+             
                 
                 PreparedStatement stmt=con.prepareStatement("select * from register");
                 ResultSet rst=stmt.executeQuery(); 
-                
-               // out.println("hiii");
-                //stmt.executeUpdate();
-                
+                int count =0,count1=0;
+               
                 
                while(rst.next())
               
@@ -59,31 +57,18 @@ public class loginservlet extends HttpServlet {
                    // if(nmae.equals)
                     String tname = rst.getString(1);
                     String tpass = rst.getString(6);
-                   out.println(tname);
+                   
+                   
                     if("o2".equals(utype))
                     {
-                        out.println(name);
-                        out.println(pass);
-                       //  out.println(tname);
-                        //out.println(tpass);
-                        
+                       
+                      
                         if((name.equals(tname) && pass.equals(tpass)))
                         {
-                            out.println("rose");
+                         
                             count++;
-                            RequestDispatcher rs = request.getRequestDispatcher("user.html");
-                            rs.forward(request, response);
-                            
                         }
-                        
-                        if(count == 0)
-                        {
-                            
-                            out.println("<html><head><script>window.alert('ERROR IN USERNAME AND PASSWORD');window.location.assign('index.html');</script></head></html>");
-                     
-                            RequestDispatcher rd=request.getRequestDispatcher("/index.html");
-                            rd.include(request, response);
-                        }
+                       
                      }
                  
                 
@@ -97,6 +82,7 @@ public class loginservlet extends HttpServlet {
                       
                        if(name.equalsIgnoreCase("ad") && pass.equalsIgnoreCase("v"))
                         {
+                            count1++;
                             RequestDispatcher rs = request.getRequestDispatcher("admin.html");
                             rs.forward(request, response);
                         }
@@ -119,8 +105,36 @@ public class loginservlet extends HttpServlet {
                         rs.include(request, response);
                     }            
                 }
-            
+               
+                         if(count == 1)
+                        {
+                            RequestDispatcher rs = request.getRequestDispatcher("user.html");
+                            rs.forward(request, response);
+                            
+                        }
+                        if(count == 0)
+                        {
+                            
+                            out.println("<html><head><script>window.alert('ERROR IN USERNAME AND PASSWORD');window.location.assign('index.html');</script></head></html>");
+                     
+                            RequestDispatcher rd=request.getRequestDispatcher("/index.html");
+                            rd.include(request, response);
+                        }
                  
+                         if(count1 == 1)
+                        {
+                            RequestDispatcher rs = request.getRequestDispatcher("admin.html");
+                            rs.forward(request, response);
+                            
+                        }
+                        if(count1 == 0)
+                        {
+                            
+                            out.println("<html><head><script>window.alert('ERROR IN USERNAME AND PASSWORD');window.location.assign('index.html');</script></head></html>");
+                     
+                            RequestDispatcher rd=request.getRequestDispatcher("/index.html");
+                            rd.include(request, response);
+                        }
              }
             catch(Exception e)
             {
