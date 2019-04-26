@@ -51,8 +51,8 @@ public class adminwitness extends HttpServlet {
                 out.println("<h1>WITNESS DETAILS <h1>");
                
                 out.println("</center>"); 
-              
-                out.println("<table border=1 width=60% height=80% align=center>"
+              out.println("<form action='admin_inner_status.jsp' ><table border=1 width=60% height=80% align=center>"
+                
                         + "<tr>"
                         + "<th>INFORMER NAME </th>"
                         + "<th>ADDRESS</th>"
@@ -84,7 +84,7 @@ public class adminwitness extends HttpServlet {
                  out.println("</table>");
                  out.println("<br>");
                    
-                 out.println("<br>");
+                 out.println("<br>");out.println ("<CENTER> <button   name='Submit'>UPDATE</button></from></CENTER> "); 
                 //out.println ("<CENTER><a style='text-decoration:none;' href='admin_inner_status.html'> <button   name='Submit'>UPDATE</button></a></CENTER> "); 
                  con.close();
                  

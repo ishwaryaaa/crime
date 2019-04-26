@@ -388,10 +388,12 @@ input[type="submit"]:hover {
 /*--End-responsive-design--*/
 </style>
 <body>
+    
+                        
 <!--start-main-->
 <h1>Welcome!<span>Please login...</span></h1>
 <div class="login-box">
-		<form name="form1" action="loginservlet" method="post" >
+		<form name="form1" action="loginservlet" method="post" > 
 			<input type="text" placeholder="Enter Username" name="name" required>
 			
                       <input type="password" placeholder="Enter Password" name="password" required><br><br>
@@ -409,9 +411,10 @@ input[type="submit"]:hover {
        <div class="clear"> </div>
 		<div class="btn">
 			<input type="submit" value="LOG IN" formaction="loginservlet" >
-                        
+                        <input type="submit" value="CANCEL" formaction="index.html" >
+                       
 		</div>
-                </form>
+                </form><a href="index.html">BACK</a>
 		
 	
 </body>

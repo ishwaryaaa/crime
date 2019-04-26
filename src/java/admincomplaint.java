@@ -38,6 +38,7 @@ public class admincomplaint extends HttpServlet {
             out.println("<title>Servlet students</title>");            
             out.println("</head>");
             out.println("<body style='background-color:#CEF6F5'>");
+             
             try
             {
                 Class.forName("com.mysql.jdbc.Driver");

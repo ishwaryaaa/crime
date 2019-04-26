@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -51,18 +52,33 @@ public class witnessservlet extends HttpServlet {
           try{
               
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/crime","root", "");   
-                 PreparedStatement ps1=con.prepareStatement("insert into witness values(?,?,?,?,?)");
-                   
-                     ps1.setString(1,name);
-                     ps1.setString(2,address);
-                     ps1.setInt(3,phonenumber);
-                     ps1.setString(4,suspectname);
-                     ps1.setString(5,description);
+                Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/crime","root", ""); 
+                 PreparedStatement ps1 = con.prepareStatement("select * from witness");
+                 
+                   ResultSet r = ps1.executeQuery();
+                 int wid=1000;
+                 if(r.next())
+                 {  r.last();
+                     wid = r.getInt("wid")+1;
+                 }
+                 ps1=con.prepareStatement("insert into witness values(?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+                 ps1.setInt(1,wid);
+                     ps1.setString(2,name);
+                     ps1.setString(3,address);
+                     ps1.setInt(4,phonenumber);
+                     ps1.setString(5,suspectname);
+                     ps1.setString(6,description);
+                      wid++;
+                      int row = ps1.executeUpdate();
+
+            if (row > 0) {
+
+               out.println("<html><head><script>window.alert('RECORD ADDED');window.alert('ID:'+wid+'');window.location.assign('index.html');</script></head></html>");
+
+               out.println(row);
+            }
                      
-                     
-                     ps1.executeUpdate();
-                    out.println("<html><body><script>window.alert('ONE ROW INSERTED');window.location.assign('index.html');</script></body></html>");
+                 
         
              }
              catch(Exception e)
